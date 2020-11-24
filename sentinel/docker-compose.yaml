@@ -1,0 +1,47 @@
+version: "3.1"
+services:
+#sentinel1
+  redis-sentinel1:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-sentinel1
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-sentinel  /usr/local/etc/redis/redis-sentinel.conf
+    volumes:
+      - ./1/conf/redis-sentinel.conf:/usr/local/etc/redis/redis-sentinel.conf
+      - ./1/logs:/var/log/redis
+
+
+  redis-sentinel2:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-sentinel2
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-sentinel  /usr/local/etc/redis/redis-sentinel.conf
+    volumes:
+      - ./2/conf/redis-sentinel.conf:/usr/local/etc/redis/redis-sentinel.conf
+      - ./2/logs:/var/log/redis
+
+
+  redis-sentinel3:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-sentinel3
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-sentinel  /usr/local/etc/redis/redis-sentinel.conf
+    volumes:
+      - ./3/conf/redis-sentinel.conf:/usr/local/etc/redis/redis-sentinel.conf
+      - ./3/logs:/var/log/redis
+

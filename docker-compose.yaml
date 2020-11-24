@@ -1,0 +1,66 @@
+version: "3.1"
+services:
+#redis主
+  redis-master:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-master
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./master/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./master/data:/data
+      - ./master/logs:/var/log/redis
+
+#redis从1
+  redis-slave1:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-slave1
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./slave1/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./slave1/data:/data
+      - ./slave1/logs:/var/log/redis
+
+#redis从2
+  redis-slave2:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-slave2
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./slave2/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./slave2/data:/data
+      - ./slave2/logs:/var/log/redis
+
+#哨兵之后在加从
+  redis-slave3:
+    image: redis:5.0.9
+    restart: always
+    network_mode: host
+    container_name: redis-slave3
+    environment:
+      - TZ=Asia/Shanghai
+#    ports:
+#      - 6377:6379
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./slave3/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./slave3/data:/data
+      - ./slave3/logs:/var/log/redis
+
